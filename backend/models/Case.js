@@ -2,61 +2,23 @@
 const mongoose = require('mongoose');
 
 const caseSchema = new mongoose.Schema({
-  caseNumber: {
-    type: String,
-    required: true,
-  },
-  registrationDate: {
-    type: Date,
-    required: true,
-  },
-  status: {
-    type: String,
-    required: true,
-  },
-  rightsViolated: {
-    type: String,
-    required: true,
-  },
-  victimInfo: {
-    name: {
-      type: String,
-      required: true,
-    },
-    age: {
-      type: Number,
-      required: true,
-    },
-    gender: {
-      type: String,
-      required: true,
-    },
-  },
-  offenderInfo: {
-    name: {
-      type: String,
-      required: true,
-    },
-    age: {
-      type: Number,
-      required: true,
-    },
-    gender: {
-      type: String,
-      required: true,
-    },
-  },
-  measures: { type: [Object], default: [] },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-});
-
-caseSchema.pre('save', async function (next) {
-  if (this.isNew) {
-    const count = await mongoose.model('Case').countDocuments();
-    this.caseNumber = `PARD-${count + 1}`;
-  }
-  next();
+  knowledgeDate: { type: Date, required: true },
+  openingDate: { type: Date, required: true },
+  status: { type: String, required: true },
+  consultationReason: { type: String, required: true },
+  violatedRight: { type: String, required: true },
+  injury: { type: String, required: true },
+  familyRelationship: { type: String, required: true },
+  nnaName: { type: String, required: true },
+  birthDate: { type: Date, required: true },
+  age: { type: Number, required: true },
+  documentType: { type: String, required: true },
+  historyNumber: { type: String, required: true },
+  eps: { type: String, required: true },
+  residenceSector: { type: String, required: true },
+  address: { type: String, required: true },
+  phone: { type: String, required: true },
+  restorationMeasure: { type: String, required: true },
 });
 
 module.exports = mongoose.model('Case', caseSchema);

@@ -156,6 +156,14 @@ const PardForm = ({ onClose, onCaseCreated }) => {
                 placeholder="Tipo de documento" 
                 icon={FaIdCard} 
               />
+              <InputField 
+                type="text" 
+                name="historyNumber" 
+                value={newCase.historyNumber} 
+                onChange={handleChange} 
+                placeholder="Número de historia" 
+                icon={FaClipboardList} 
+              />
             </div>
 
             {/* Columna 2 - Detalles del Caso */}
@@ -197,6 +205,22 @@ const PardForm = ({ onClose, onCaseCreated }) => {
                 onChange={handleChange} 
                 placeholder="Derecho vulnerado" 
                 icon={FaHandHoldingHeart} 
+              />
+              <InputField 
+                type="text" 
+                name="consultationReason" 
+                value={newCase.consultationReason} 
+                onChange={handleChange} 
+                placeholder="Motivo de consulta" 
+                icon={FaNotesMedical} 
+              />
+              <InputField 
+                type="text" 
+                name="injury" 
+                value={newCase.injury} 
+                onChange={handleChange} 
+                placeholder="Lesión" 
+                icon={FaStethoscope} 
               />
             </div>
 

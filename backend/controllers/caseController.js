@@ -4,29 +4,19 @@ const Case = require('../models/Case');
 exports.getCases = async (req, res) => {
   try {
     const cases = await Case.find();
-    res.json(cases);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(200).json(cases);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
 exports.createCase = async (req, res) => {
-  const { registrationDate, status, rightsViolated, victimInfo, offenderInfo } = req.body;
   try {
-    const count = await Case.countDocuments();
-    const caseNumber = `PARD-${count + 1}`;
-    const newCase = new Case({
-      caseNumber,
-      registrationDate,
-      status,
-      rightsViolated,
-      victimInfo,
-      offenderInfo,
-    });
-    const savedCase = await newCase.save();
-    res.status(201).json(savedCase);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+    const newCase = new Case(req.body);
+    await newCase.save();
+    res.status(201).json(newCase);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 };
 

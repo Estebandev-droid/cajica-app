@@ -51,7 +51,7 @@ const CaseManager = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-100 via-blue-100 to-gray-200 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Contenedor principal elevado */}
-        <div className="bg-white rounded-[2rem] shadow-2xl border border-gray-100 overflow-hidden">
+        <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
           <div className="p-10">
             {/* Header */}
             <div className="mb-12 flex items-center justify-between">
@@ -70,7 +70,7 @@ const CaseManager = () => {
             <div className="flex gap-5 mb-14">
               <button
                 onClick={() => setIsPardModalOpen(true)}
-                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl flex items-center gap-3 shadow-xl hover:shadow-2xl transition-all transform hover:scale-[1.02]"
+                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl flex items-center gap-3 shadow-xl hover:shadow-2xl transition-all transform hover:scale-105"
               >
                 <FaPlus className="text-lg" />
                 <span className="text-lg">Nuevo PARD</span>
@@ -78,7 +78,7 @@ const CaseManager = () => {
 
               <button
                 onClick={() => setIsMeasureModalOpen(true)}
-                className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-8 py-4 rounded-xl flex items-center gap-3 shadow-xl hover:shadow-2xl transition-all transform hover:scale-[1.02]"
+                className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-8 py-4 rounded-xl flex items-center gap-3 shadow-xl hover:shadow-2xl transition-all transform hover:scale-105"
               >
                 <FaPlus className="text-lg" />
                 <span className="text-lg">Nueva Medida</span>
