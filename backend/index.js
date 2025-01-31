@@ -7,8 +7,9 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const caseRoutes = require('./routes/caseRoutes');
-const measureRoutes = require('./routes/measureRoutes'); // Importar las rutas de Medidas de Protecci��n
-const errorHandler = require('./middleware/errorHandler'); // Importar el middleware de manejo de errores
+const measureRoutes = require('./routes/measureRoutes');
+const uploadRoutes = require('./routes/uploadRoutes'); // Nueva ruta
+const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -19,13 +20,17 @@ connectDB();
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
-app.use(morgan('combined')); 
+app.use(morgan('combined'));
 
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api', userRoutes);
 app.use('/api', caseRoutes);
-app.use('/api', measureRoutes); // Usar las rutas de Medidas de Protección
+app.use('/api', measureRoutes);
+app.use('/api', uploadRoutes); // Nueva ruta
+
+// Servir archivos estáticos
+app.use('/uploads', express.static('uploads')); // Asegúrate de que esta línea esté presente
 
 // Error handling middleware
 app.use(errorHandler);

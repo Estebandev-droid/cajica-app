@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import MeasureForm from '../forms/MeasureForm';
 import PardForm from '../forms/PardForm';
 import { useNavigate } from 'react-router-dom';
-import { FaPlus, FaFileAlt, FaShieldAlt, FaHashtag, FaInfoCircle, FaChevronRight } from 'react-icons/fa';
+import { FaPlus, FaFileAlt, FaShieldAlt, FaHashtag, FaInfoCircle, FaChevronRight, FaUpload } from 'react-icons/fa';
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -64,6 +64,22 @@ const CaseManager = () => {
                   </span>
                 </h1>
               </div>
+              <div className="flex gap-4">
+                <button
+                  onClick={() => navigate('/pard-list')}
+                  className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 shadow-xl hover:shadow-2xl transition-all transform hover:scale-105"
+                >
+                  <FaFileAlt className="text-lg" />
+                  <span className="text-lg">Mostrar PARD</span>
+                </button>
+                <button
+                  onClick={() => navigate('/measure-list')}
+                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 shadow-xl hover:shadow-2xl transition-all transform hover:scale-105"
+                >
+                  <FaShieldAlt className="text-lg" />
+                  <span className="text-lg">Mostrar Medidas</span>
+                </button>
+              </div>
             </div>
 
             {/* Botones de acción */}
@@ -101,6 +117,8 @@ const CaseManager = () => {
                       <tr className="text-left text-gray-600 border-b">
                         <th className="pb-4 px-4"><FaHashtag className="inline mr-2" />Número de Caso</th>
                         <th className="pb-4 px-4"><FaInfoCircle className="inline mr-2" />Estado</th>
+                        <th className="pb-4 px-4"><FaInfoCircle className="inline mr-2" />Derecho Vulnerado</th>
+                        <th className="pb-4 px-4"><FaInfoCircle className="inline mr-2" />Nombre del NNA</th>
                         <th className="pb-4 px-4"></th>
                       </tr>
                     </thead>
@@ -121,6 +139,8 @@ const CaseManager = () => {
                               {caseItem.status}
                             </span>
                           </td>
+                          <td className="p-4 border-b border-gray-100">{caseItem.violatedRight}</td>
+                          <td className="p-4 border-b border-gray-100">{caseItem.nnaName}</td>
                           <td className="p-4 border-b border-gray-100 text-right">
                             <FaChevronRight className="text-gray-400" />
                           </td>
@@ -183,6 +203,14 @@ const CaseManager = () => {
             </div>
           </div>
         </div>
+
+        {/* Botón flotante para subir documentos */}
+        <button
+          onClick={() => navigate('/upload-documents')}
+          className="fixed bottom-8 right-8 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition"
+        >
+          <FaUpload className="text-2xl" />
+        </button>
 
         {/* Modals */}
         <Modal

@@ -2,6 +2,11 @@
 const mongoose = require('mongoose');
 
 const caseSchema = new mongoose.Schema({
+  caseNumber: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   knowledgeDate: { type: Date, required: true },
   openingDate: { type: Date, required: true },
   status: { type: String, required: true },

@@ -1,4 +1,3 @@
-// controllers/caseController.js
 const Case = require('../models/Case');
 
 exports.getCases = async (req, res) => {
@@ -12,7 +11,12 @@ exports.getCases = async (req, res) => {
 
 exports.createCase = async (req, res) => {
   try {
-    const newCase = new Case(req.body);
+    const count = await Case.countDocuments();
+    const caseNumber = `PARD-${count + 1}`;
+    const newCase = new Case({
+      ...req.body,
+      caseNumber,
+    });
     await newCase.save();
     res.status(201).json(newCase);
   } catch (error) {
@@ -33,23 +37,12 @@ exports.getCaseById = async (req, res) => {
 };
 
 exports.updateCase = async (req, res) => {
-  const { caseNumber, registrationDate, status, rightsViolated, victimInfo, offenderInfo } = req.body;
-
   try {
-    const caseItem = await Case.findById(req.params.id);
+    const caseItem = await Case.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!caseItem) {
       return res.status(404).json({ message: 'Case not found' });
     }
-
-    caseItem.caseNumber = caseNumber || caseItem.caseNumber;
-    caseItem.registrationDate = registrationDate || caseItem.registrationDate;
-    caseItem.status = status || caseItem.status;
-    caseItem.rightsViolated = rightsViolated || caseItem.rightsViolated;
-    caseItem.victimInfo = victimInfo || caseItem.victimInfo;
-    caseItem.offenderInfo = offenderInfo || caseItem.offenderInfo;
-
-    await caseItem.save();
-    res.json(caseItem);
+    res.status(200).json(caseItem);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

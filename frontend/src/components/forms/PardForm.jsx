@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { 
-  FaCalendarAlt, FaClipboardList, FaUser, FaHome, FaPhone, 
-  FaPlusCircle, FaTimes, FaIdCard, FaBalanceScale, FaStethoscope,
-  FaUsers, FaMapMarker, FaFileMedical, FaHeartbeat, FaChild,
-  FaCity, FaNotesMedical, FaHandHoldingHeart
-} from 'react-icons/fa';
+import { FaCalendarAlt, FaClipboardList, FaUser, FaHome, FaPhone, FaPlusCircle, FaTimes, FaIdCard, FaBalanceScale, FaStethoscope, FaUsers, FaMapMarker, FaFileMedical, FaHeartbeat, FaChild, FaCity, FaNotesMedical, FaHandHoldingHeart } from 'react-icons/fa';
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -18,8 +13,7 @@ const InputField = ({ type, name, value, onChange, placeholder, icon: Icon }) =>
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className="w-full pl-12 pr-4 py-3.5 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all 
-                text-gray-700 shadow-sm hover:shadow-md bg-white relative"
+      className="w-full pl-12 pr-4 py-3.5 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all text-gray-700 shadow-sm hover:shadow-md bg-white relative"
       required
     />
     {value && (
@@ -34,9 +28,7 @@ const ActionButton = ({ onClick, type = 'submit', text, icon: Icon }) => (
   <button
     type={type}
     onClick={onClick}
-    className={`flex items-center justify-center gap-3 px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all 
-              bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white 
-              transform hover:scale-[1.02] active:scale-95 font-semibold text-lg min-w-[200px]`}
+    className={`flex items-center justify-center gap-3 px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white transform hover:scale-[1.02] active:scale-95 font-semibold text-lg min-w-[200px]`}
   >
     <Icon className="text-xl transition-transform group-hover:rotate-12" />
     <span>{text}</span>
@@ -85,14 +77,13 @@ const PardForm = ({ onClose, onCaseCreated }) => {
       onCaseCreated(response.data);
       onClose();
     } catch (error) {
-      console.error(error);
+      console.error('Error creating case:', error);
     }
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900/50 backdrop-blur-sm p-4 animate-fadeIn">
-      <div className="bg-white p-8 rounded-3xl shadow-2xl w-full max-w-7xl max-h-[90vh] overflow-y-auto border border-gray-100 
-                     transform transition-all duration-300 hover:shadow-3xl">
+      <div className="bg-white p-8 rounded-3xl shadow-2xl w-full max-w-7xl max-h-[90vh] overflow-y-auto border border-gray-100 transform transition-all duration-300 hover:shadow-3xl">
         
         {/* Encabezado */}
         <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
@@ -8,12 +9,16 @@ const CaseDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [caseDetails, setCaseDetails] = useState(null);
-  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const fetchCaseDetails = async () => {
       try {
         const token = localStorage.getItem('token');
+        if (!token) {
+          navigate("/login");
+          return;
+        }
+
         const response = await axios.get(`${BASE_URL}/cases/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -24,78 +29,97 @@ const CaseDetails = () => {
     };
 
     fetchCaseDetails();
-  }, [id]);
+  }, [id, navigate]);
 
-  const handleChange = (e) => {
-    setCaseDetails({ ...caseDetails, [e.target.name]: e.target.value });
-  };
-
-  const handleSave = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      await axios.put(`${BASE_URL}/cases/${id}`, caseDetails, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setIsEditing(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  if (!caseDetails) return <div>Loading...</div>;
+  if (!caseDetails) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-900 to-indigo-900">
-      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-3xl">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">Case Details</h2>
-        {isEditing ? (
-          <form className="space-y-4">
-            <input
-              type="text"
-              name="caseNumber"
-              value={caseDetails.caseNumber}
-              onChange={handleChange}
-              placeholder="Case Number"
-              className="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
-              required
-            />
-            <input
-              type="text"
-              name="status"
-              value={caseDetails.status}
-              onChange={handleChange}
-              placeholder="Status"
-              className="w-full p-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
-              required
-            />
-            {/* Add other fields as needed */}
-            <button
-              type="button"
-              onClick={handleSave}
-              className="w-full bg-blue-500 text-white p-3 rounded-xl hover:bg-blue-700 transition"
-            >
-              Save
-            </button>
-          </form>
-        ) : (
-          <div>
-            <p><strong>Case Number:</strong> {caseDetails.caseNumber}</p>
-            <p><strong>Status:</strong> {caseDetails.status}</p>
-            {/* Add other fields as needed */}
-            <button
-              onClick={() => setIsEditing(true)}
-              className="w-full bg-blue-500 text-white p-3 rounded-xl hover:bg-blue-700 transition"
-            >
-              Edit
-            </button>
-          </div>
-        )}
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-blue-100 to-gray-200 p-8">
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl border border-gray-100 p-8">
         <button
-          onClick={() => navigate('/cases')}
-          className="w-full bg-gray-500 text-white p-3 rounded-xl hover:bg-gray-700 transition mt-4"
+          onClick={() => navigate(-1)}
+          className="mb-4 flex items-center gap-2 text-blue-600 hover:text-blue-800 transition"
         >
-          Back to Cases
+          <FaArrowLeft />
+          <span>Back</span>
         </button>
+        <h1 className="text-3xl font-bold text-gray-900 mb-6">Detalles del Caso PARD</h1>
+        <div className="space-y-4">
+          <div className="flex justify-between">
+            <span className="font-semibold">Número de Caso:</span>
+            <span>{caseDetails.caseNumber}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Fecha de Conocimiento:</span>
+            <span>{new Date(caseDetails.knowledgeDate).toLocaleDateString()}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Fecha de Apertura:</span>
+            <span>{new Date(caseDetails.openingDate).toLocaleDateString()}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Estado:</span>
+            <span>{caseDetails.status}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Derecho Vulnerado:</span>
+            <span>{caseDetails.violatedRight}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Motivo de Consulta:</span>
+            <span>{caseDetails.consultationReason}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Lesión:</span>
+            <span>{caseDetails.injury}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Parentesco con Agresor:</span>
+            <span>{caseDetails.familyRelationship}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Nombre del NNA:</span>
+            <span>{caseDetails.nnaName}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Fecha de Nacimiento:</span>
+            <span>{new Date(caseDetails.birthDate).toLocaleDateString()}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Edad:</span>
+            <span>{caseDetails.age}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Tipo de Documento:</span>
+            <span>{caseDetails.documentType}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Número de Historia:</span>
+            <span>{caseDetails.historyNumber}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">EPS:</span>
+            <span>{caseDetails.eps}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Sector de Residencia:</span>
+            <span>{caseDetails.residenceSector}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Dirección:</span>
+            <span>{caseDetails.address}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Teléfono:</span>
+            <span>{caseDetails.phone}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="font-semibold">Medida de Restablecimiento:</span>
+            <span>{caseDetails.restorationMeasure}</span>
+          </div>
+        </div>
       </div>
     </div>
   );
